@@ -1,4 +1,6 @@
-### To view the live site, [visit here]()
+### To view the live site, [visit here](https://extraordinary-torte-518601.netlify.app/)
+
+### To watch the video of running app, [visit here](https://drive.google.com/file/d/1BPkQyhadQKUp5SDYlND0yx2hMxhXfvte/view?usp=sharing)
 
 ### To run this application locally, use the following commands in the terminal:
 * yarn
