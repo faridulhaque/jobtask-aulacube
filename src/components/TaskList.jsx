@@ -5,7 +5,8 @@ import { Confirm } from "react-st-modal";
 const TaskList = () => {
   const [tasks, setTasks] = useState([]);
 
-  console.log(tasks);
+  const [count, setCount] = useState({ start: 0, end: 5 });
+
 
   const navigate = useNavigate();
 
@@ -30,7 +31,7 @@ const TaskList = () => {
 
     if (result) {
       const updatedTasks = [...tasks];
-      updatedTasks[i].complete = true;
+      updatedTasks[i + count.start].complete = true;
       setTasks(updatedTasks);
       localStorage.setItem("tasks", JSON.stringify(updatedTasks));
     }
@@ -45,10 +46,12 @@ const TaskList = () => {
       localStorage.setItem("tasks", JSON.stringify(updatedTasks));
     }
   };
+  
+
 
   return (
     <div>
-      <div className="overflow-x-auto ml-5 mt-5">
+      <div className="overflow-x-auto ml-5 mt-5 lg:h-[600px]">
         <table className="table">
           <thead>
             <tr>
@@ -65,6 +68,7 @@ const TaskList = () => {
           <tbody>
             {tasks
               ?.sort((a, b) => parseInt(a.level) - parseInt(b.level))
+              .slice(count.start, count.end)
               .map((t, i) => (
                 <tr
                   key={i}
@@ -122,6 +126,27 @@ const TaskList = () => {
               ))}
           </tbody>
         </table>
+      </div>
+
+      <div className="join grid grid-cols-2 mx-auto lg:w-2/4 sm:w-4/5 mt-5">
+        <button
+          onClick={() =>
+            setCount({ start: count.start - 5, end: count.end - 5 })
+          }
+          className="join-item btn btn-outline"
+          disabled={count.start === 0}
+        >
+          Previous
+        </button>
+        <button
+          disabled={count.end > tasks?.length}
+          onClick={() =>
+            setCount({ start: count.start + 5, end: count.end + 5 })
+          }
+          className="join-item btn btn-outline"
+        >
+          Next
+        </button>
       </div>
     </div>
   );
